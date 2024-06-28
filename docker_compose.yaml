@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  # frontend:
+  #   build:
+  #     context: ./myapi/frontend
+  #     dockerfile: Dockerfile
+  #   ports:
+  #   volumes:
+  #   networks:
+
+  # backend:
+  #   build:
+  #     context: ./myapi/backend_docker
+  #     dockerfile: Dockerfile  # 사용할 Dockerfile 이름
+  #   ports:
+  #   environment:
+  #   volumes:
+  #   depends_on:
+  #     - db
+  #   networks:
+
+  db:
+    image: mysql:8.0
+    container_name: rive_mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: rive
+      MYSQL_USER: kitri
+      MYSQL_PASSWORD: rive123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+networks:
+
+volumes:
+  db_data:
