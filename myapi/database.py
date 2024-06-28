@@ -2,9 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-# alembic.init 파일 아래와 같이 수정
-# sqlalchemy.url = mysql+pymysql://kitri:rive123@localhost:3306/rive
-
 # 연결할 db URL
 SQLALCHEMY_DATABASE_URL = "mysql+pymysql://kitri:rive123@db:3306/rive"
 
