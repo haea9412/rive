@@ -11,3 +11,8 @@ def create_answer(db: Session, post_id: int, answer_create: AnswerCreate):
                        create_date = datetime.now())
     db.add(db_answer)
     db.commit()
+
+def get_answers_list(db: Session, post_id: int):
+    answers_list = db.query(Answers).filter(Posts.post_id == post_id).all()
+    return answers_list
+    

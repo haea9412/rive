@@ -7,6 +7,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from domain.answers import answer_router
 from domain.posts import posts_router
+from domain.users import users_router
 
 from database import engine
 
@@ -43,4 +44,4 @@ def read_item(item_id: int, q: Union[str, None] = None):
 """
 app.include_router(posts_router.router)
 app.include_router(answer_router.router)
-
+app.include_router(users_router.router)

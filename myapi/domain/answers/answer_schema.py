@@ -1,5 +1,15 @@
+import datetime
 from pydantic import BaseModel
 from pydantic.functional_validators import field_validator
+
+
+class Answer(BaseModel):
+    answer_id: int | None  = None
+    post_id: int | None  = None
+    user_id: int | None  = None
+    content: str
+    create_date: datetime.datetime
+
 
 class AnswerCreate(BaseModel):
     content: str

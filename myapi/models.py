@@ -8,8 +8,8 @@ from database import Base
 class Users(Base):
     __tablename__ = "users"
 
-    user_id = Column(Integer, primary_key=True)
-    username = Column(String(20), nullable=False)
+    user_id = Column(Integer, primary_key=True, index=True)
+    username = Column(String(20), nullable=False, unique=True)
     user_pw = Column(String(20), nullable=False)
     create_date = Column(DateTime,default=datetime.now(),  nullable=False)
 

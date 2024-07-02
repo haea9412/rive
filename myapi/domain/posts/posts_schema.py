@@ -18,7 +18,7 @@ class PostCreate(BaseModel):
     title: str
     content: str
 
-    @field_validator('subject', 'content', check_fields=False)
+    @field_validator('title', 'content', check_fields=False)
     def not_empty(cls, v):
         if not v or not v.strip():
             raise ValueError('빈 값은 허용되지 않습니다.')

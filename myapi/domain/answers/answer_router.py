@@ -20,3 +20,9 @@ def answer_create(post_id: int,
         if not post:
                 raise HTTPException(status_code = 404, detail = "Post not found")
         answer_crud.create_answer(db, post_id = post_id, answer_create=_answer_create)
+
+#answer_list
+@router.post("/list", response_model = list[answer_schema.Answers])
+def answer_list(post_id: int, db: Session = Depends(get_db)):
+        _answer_list = answer_crud.get_answers_list(db, post_id=post_id)
+        return _answer_list

@@ -30,7 +30,7 @@ def posts_list(db: Session = Depends(get_db)):
     return _posts_list
 
 
-@router.get("/detail/{post_id}", response_model = posts_schema.Posts)
+@router.get("/list/{post_id}", response_model = posts_schema.Posts)
 def posts_detail(post_id: int, db: Session = Depends(get_db)):
     posts = posts_crud.get_post(db, post_id=post_id)
     return posts
@@ -40,7 +40,7 @@ def post_create(_post_create: posts_schema.Posts,
                 db: Session = Depends(get_db)):
         posts_crud.create_post(db = db, post_create=_post_create)
 
-@router.get("/list/{user_id}")
+@router.get("/list/user/{user_id}")
 def post_userlist(user_id: int, db: Session = Depends(get_db)):
      posts = posts_crud.user_postlist(db, user_id=user_id)
      return posts
