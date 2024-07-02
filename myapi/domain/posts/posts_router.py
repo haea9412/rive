@@ -32,7 +32,7 @@ def posts_list(db: Session = Depends(get_db)):
 
 @router.get("/detail/{post_id}", response_model = posts_schema.Posts)
 def posts_detail(post_id: int, db: Session = Depends(get_db)):
-    posts = posts_crud.get_posts(db, post_id=post_id)
+    posts = posts_crud.get_post(db, post_id=post_id)
     return posts
 
 @router.post("/create", status_code = status.HTTP_204_NO_CONTENT)
