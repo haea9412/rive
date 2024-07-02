@@ -1,6 +1,8 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+from starlette import status
+
 from database import get_db
 from domain.posts import posts_schema, posts_crud
 
@@ -28,7 +30,12 @@ def posts_list(db: Session = Depends(get_db)):
     return _posts_list
 
 
-@router.get("/detail/{posts_id}", response_model = posts_schema.Posts)
-def posts_detail(posts_id: int, db: Session = Depends(get_db)):
-    posts = posts_crud.get_posts(db, posts_id=posts_id)
+@router.get("/detail/{post_id}", response_model = posts_schema.Posts)
+def posts_detail(post_id: int, db: Session = Depends(get_db)):
+    posts = posts_crud.get_posts(db, post_id=post_id)
     return posts
+
+@router.post("/create", status_code = status.HTTP_204_NO_CONTENT)
+def post_create(_post_create: posts_schema.PostCreate,
+                db: Session = Depends(get_db)):
+        posts_crud.create_post(db = db, post_create=_post_create)
