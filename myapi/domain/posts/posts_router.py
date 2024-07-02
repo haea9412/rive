@@ -26,3 +26,9 @@ def posts_list(db: Session = Depends(get_db)):
 
     _posts_list = posts_crud.get_posts_list(db)
     return _posts_list
+
+
+@router.get("/detail/{posts_id}", response_model = posts_schema.Posts)
+def posts_detail(posts_id: int, db: Session = Depends(get_db)):
+    posts = posts_crud.get_posts(db, posts_id=posts_id)
+    return posts
