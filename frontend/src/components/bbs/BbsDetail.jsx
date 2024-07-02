@@ -25,19 +25,10 @@ function BbsDetail() {
 			console.log(data);
 			setBbs(data);
 		})
-
-		// await axios.get(`http://localhost:3000/bbs/${seq}`, {params: {readerId: auth ? auth : ""}})
-		// .then((resp) => {
-		// 	console.log("[BbsDetail.js] getBbsDetail() success :D");
-		// 	console.log(resp.data);
-
-		// 	setBbs(resp.data.bbs);
-		// })
-		// .catch((err) => {
-		// 	console.log("[BbsDetail.js] getBbsDetail() error :<");
-		// 	console.log(err);
-		// });
-
+		.catch((err) => {
+			console.log("[BbsDetail.js] getBbsDetail() error :<");
+			console.log(err);
+		});
 	}
 
 	const deleteBbs = async () => {

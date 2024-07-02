@@ -28,21 +28,11 @@ function BbsList() {
         .then(res=>{return res.json()})
 		.then((data)=>{
 			setBbsList(data);
+		})
+		.catch((err) => {
+			console.log("[BbsList.js] useEffect() error :<");
+			console.log(err);
 		});
-
-		// await axios.get("http://localhost:3000/bbs", { params: { "choice": choice, "search": search, "page": page } })
-		// 	.then((resp) => {
-		// 		console.log("[BbsList.js] useEffect() success :D");
-		// 		console.log(resp.data);
-
-		// 		setBbsList(resp.data.bbsList);
-		// 		setTotalCnt(resp.data.pageCnt);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log("[BbsList.js] useEffect() error :<");
-		// 		console.log(err);
-
-		// 	});
 	}
 
 	useEffect(() => {
