@@ -36,6 +36,11 @@ def posts_detail(post_id: int, db: Session = Depends(get_db)):
     return posts
 
 @router.post("/create", status_code = status.HTTP_204_NO_CONTENT)
-def post_create(_post_create: posts_schema.PostCreate,
+def post_create(_post_create: posts_schema.Posts,
                 db: Session = Depends(get_db)):
         posts_crud.create_post(db = db, post_create=_post_create)
+
+@router.get("/list/{user_id}")
+def post_userlist(user_id: int, db: Session = Depends(get_db)):
+     posts = posts_crud.user_postlist(db, user_id=user_id)
+     return posts

@@ -5,7 +5,7 @@ from pydantic import BaseModel, field_validator
 
 class Posts(BaseModel):
     type: int
-    id: int | None = None
+    post_id: int | None = None
     user_id: int | None  = None
     title: str
     content: str
@@ -13,7 +13,8 @@ class Posts(BaseModel):
 # str|None = None : 필수 항목이 아닌 경우 들어가는 옵션(str or none, default none)
 
 class PostCreate(BaseModel): 
-    id: str  
+    
+    post_id: str  
     title: str
     content: str
 

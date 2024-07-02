@@ -14,10 +14,15 @@ def get_post(db: Session, post_id: int):
     posts = db.query(Posts).get(post_id)
     return posts
 
-def create_post(db: Session, post_create: PostCreate):
-    db_post = Posts(id=post_create.id,
+def create_post(db: Session, post_create: Posts):
+    db_post = Posts(type = post_create.type,
+                    user_id=post_create.user_id,
                     title = post_create.title,
                     content = post_create.content,
                     create_date = datetime.now())
     db.add(db_post)
     db.commit()
+
+def user_postlist(db: Session, user_id: int):
+    posts_list = db.query(Posts).filter(Posts.user_id == user_id).all()
+    return posts_list

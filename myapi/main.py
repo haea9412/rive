@@ -1,11 +1,18 @@
+import models
+
+
 from typing import Union
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
+from domain.answers import answer_router
 from domain.posts import posts_router
+
+from database import engine
 
 app = FastAPI()
 
+models.Base.metadata.create_all(bind=engine)
 
 origins = [
     "http://127.0.0.1:3000",
@@ -34,4 +41,5 @@ def read_item(item_id: int, q: Union[str, None] = None):
 
 """
 app.include_router(posts_router.router)
+app.include_router(answer_router.router)
 
