@@ -16,7 +16,7 @@ def answer_create(post_id: int,
                   _answer_create: answer_schema.AnswerCreate,
                   db: Session = Depends(get_db)):
         #create answer
-        post = posts_crud.get_posts(db, post_id=post_id)
+        post = posts_crud.get_post(db, post_id=post_id)
         if not post:
                 raise HTTPException(status_code = 404, detail = "Post not found")
-        answer_crud.create_answer(db, post = post, answer_create=_answer_create)
+        answer_crud.create_answer(db, post_id = post_id, answer_create=_answer_create)

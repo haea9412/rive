@@ -10,7 +10,7 @@ class Users(Base):
 
     user_id = Column(Integer, primary_key=True)
     username = Column(String(20), nullable=False)
-    passwd = Column(String(20), nullable=False)
+    user_pw = Column(String(20), nullable=False)
     create_date = Column(DateTime,default=datetime.now(),  nullable=False)
 
 # posts 전체 게시판 글 모음
