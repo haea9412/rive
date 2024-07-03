@@ -17,12 +17,11 @@ function BbsDetail() {
 	const navigate = useNavigate();
 
 	const getBbsDetail = async () => {
-		fetch(`http://127.0.0.1:8000/api/posts/detail/${seq}`)
+		fetch(`/api/posts/detail/${seq}`)
 		.then(res=>{
 			return res.json();
 		})
 		.then(data=>{
-			console.log(data);
 			setBbs(data);
 		})
 		.catch((err) => {
@@ -70,11 +69,11 @@ function BbsDetail() {
 		<div>
 
 			<div className="my-3 d-flex justify-content-end">
-				<Link className="btn btn-outline-secondary" to={{pathname: `/bbsanswer/${bbs.seq}` }} state={{ parentBbs: parentBbs }}><i className="fas fa-pen"></i> 답글쓰기</Link> &nbsp;
+				{/* <Link className="btn btn-outline-secondary" to={{pathname: `/bbsanswer/${bbs.seq}` }} state={{ parentBbs: parentBbs }}><i className="fas fa-pen"></i> 답글쓰기</Link> &nbsp; */}
 
 			{
 				/* 자신이 작성한 게시글인 경우에만 수정 삭제 가능 */
-				(localStorage.getItem("id") == bbs.id) ?
+				(localStorage.getItem("id") == bbs.user_id) ?
 					<>
 						<Link className="btn btn-outline-secondary"  to="/bbsupdate" state={{ bbs: updateBbs }}><i className="fas fa-edit"></i> 수정</Link> &nbsp;
 						<button className="btn btn-outline-danger"  onClick={deleteBbs}><i className="fas fa-trash-alt"></i> 삭제</button>
@@ -90,7 +89,7 @@ function BbsDetail() {
 					<tr>
 						<th className="col-3">작성자</th>
 						<td>
-							<span>{bbs.id}</span>
+							<span>{bbs.user_id}</span>
 						</td>
 					</tr>
 
@@ -104,7 +103,7 @@ function BbsDetail() {
 					<tr>
 						<th>작성일</th>
 						<td>
-							<span>{new Date(bbs.create_at).toLocaleDateString()}</span>
+							<span>{new Date(bbs.create_date).toLocaleDateString()}</span>
 						</td>
 					</tr>
 

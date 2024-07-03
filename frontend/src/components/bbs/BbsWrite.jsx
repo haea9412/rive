@@ -30,18 +30,23 @@ function BbsWrite() {
 			content: content
 		}
 
-		// await axios.post("http://localhost:3000/bbs", req, {headers: headers})
-		// .then((resp) => {
-		// 	console.log("[BbsWrite.js] createBbs() success :D");
-		// 	console.log(resp.data);
-
-		// 	alert("새로운 게시글을 성공적으로 등록했습니다 :D");
-		// 	navigate(`/bbsdetail/${resp.data.seq}`); // 새롭게 등록한 글 상세로 이동
-		// })
-		// .catch((err) => {
-		// 	console.log("[BbsWrite.js] createBbs() error :<");
-		// 	console.log(err);
-		// });
+		fetch("/api/posts/create",{
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"accept": "*/*"
+			},
+			body: JSON.stringify({
+				"type": 1,
+				"user_id": 1,
+				"title": title,
+				"content": content,
+				"create_date": new Date(),
+			})
+		})
+		.then((res)=>{
+			navigate(`/bbslist`); // 새롭게 등록한 글 상세로 이동
+		})
 	}
 
 	useEffect(() => {
@@ -56,22 +61,22 @@ function BbsWrite() {
 		<div>
 			<table className="table">
 				<tbody>
-					<tr>
-						<th className="table-primary">작성자</th>
+					{/* <tr>
+						<th className="table-dark text-center">작성자</th>
 						<td>
 							<input type="text" className="form-control"  value={localStorage.getItem("id")} size="50px" readOnly />
 						</td>
-					</tr>
+					</tr> */}
 
 					<tr>
-						<th className="table-primary">제목</th>
+						<th className="table-dark text-center">제목</th>
 						<td>
 							<input type="text" className="form-control" value={title} onChange={changeTitle} size="50px" />
 						</td>
 					</tr>
 
 					<tr>
-						<th className="table-primary">내용</th>
+						<th className="table-dark text-center">내용</th>
 						<td>
 							<textarea className="form-control" value={content} onChange={changeContent} rows="10"></textarea>
 						</td>

@@ -13,6 +13,6 @@ code {
 }
 
 #root{
-  position: fixed;
+  /* position: fixed; */
   top: 0;
 }

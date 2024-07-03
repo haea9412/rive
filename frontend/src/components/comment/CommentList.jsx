@@ -18,19 +18,17 @@ function CommentList(props) {
 	}
 
 	const getCommentList = async (page) => {
-		// await axios.get(`http://localhost:3000/comment`, { params: { "bbsSeq": seq, "page": page } })
-		// 	.then((resp) => {
-		// 		console.log("[BbsComment.js] getCommentList() success :D");
-		// 		console.log(resp.data);
-
-		// 		setCommentList(resp.data.commentList);
-		// 		setTotalCnt(resp.data.pageCnt);
-
-		// 	}).catch((err) => {
-		// 		console.log("[BbsComment.js] getCommentList() error :<");
-		// 		console.log(err);
-
-		// 	});
+		fetch(`/api/answer/list/${seq}`)
+		.then((res)=>{
+			return res.json();
+		})
+		.then(data=>{
+			setCommentList(data);
+		})
+		.catch((err) => {
+			console.log("[BbsComment.js] getCommentList() error :<");
+			console.log(err);
+		});
 	}
 
 	useEffect(() => {

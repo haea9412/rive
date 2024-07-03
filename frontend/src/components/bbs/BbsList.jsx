@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import Pagination from "react-js-pagination";
+import Pagination from "react-js-pagination";
 
 import "../../css/bbslist.css";
 import "../../css/page.css";
@@ -23,9 +23,10 @@ function BbsList() {
 
 	/* [GET /bbs]: 게시글 목록 */
 	const getBbsList = async (choice, search, page) => {
-		// fetch("http://localhost:8000/api/posts/list")
-		fetch("http://localhost:8000/api/posts/list")
-        .then(res=>{return res.json()})
+		fetch("/api/posts/list")
+        .then(res=>{
+			return res.json()
+		})
 		.then((data)=>{
 			setBbsList(data);
 		})
@@ -132,7 +133,7 @@ function TableRow(props) {
 							<td >
 								{/* <Arrow depth={bbs.depth}></Arrow> &nbsp; */}
 
-								<Link to={{ pathname: `/bbsdetail/${bbs.id}` }}> { /* 게시글 상세 링크 */}
+								<Link to={{ pathname: `/bbsdetail/${bbs.post_id}` }}> { /* 게시글 상세 링크 */}
 									<span className="underline bbs-title" >{bbs.title} </span> { /* 게시글 제목 */}
 								</Link>
 							</td>
