@@ -3,7 +3,7 @@ import datetime
 from pydantic import BaseModel, field_validator
 
 class Users(BaseModel):
-    user_id: int | None = None
+    user_id: int
     username: str
     user_pw: str
     create_date: datetime.datetime

@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from pydantic.functional_validators import field_validator
 
 
-class Answer(BaseModel):
+class Answers(BaseModel):
     answer_id: int | None  = None
     post_id: int | None  = None
     user_id: int | None  = None

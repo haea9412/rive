@@ -20,6 +20,6 @@ def user_create(_user_create: users_schema.Users,
 
 #post
 @router.post("/login")
-def user_login(_user_login: users_schema.Users,
-                db: Session = Depends(get_db)):
-        users_crud.get_user(db = db, user_login=_user_login)
+def user_login(_user_login: users_schema.Users, db: Session = Depends(get_db)):
+    user = users_crud.get_user(db = db, user_login=_user_login)
+    return user
