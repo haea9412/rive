@@ -29,3 +29,9 @@ class UserCreate(BaseModel):
         if 'user_pw1' in info.data and v != info.data['user_pw1']:
             raise ValueError("비밀번호가 일치하지 않습니다.")
         return v
+    
+#login api 출력 스키마
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    username: str
