@@ -10,7 +10,7 @@ class Users(Base):
 
     user_id = Column(Integer, primary_key=True, index=True, unique=True)
     username = Column(String(20), nullable=False, unique=True)
-    user_pw = Column(String(20), nullable=False)
+    user_pw = Column(String(20), unique = True, nullable=False)
     email = Column(String, unique=True, nullable=False)
     create_date = Column(DateTime,default=datetime.now(),  nullable=False)
 

@@ -1,5 +1,5 @@
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from starlette import status
 
@@ -12,14 +12,24 @@ router = APIRouter(
 )
 
 
+#unique user create
 @router.post("/create", status_code = status.HTTP_204_NO_CONTENT)
-def user_create(_user_create: users_schema.Users,
+def user_create(_user_create: users_schema.UserCreate,
                 db: Session = Depends(get_db)):
+   
+    user = users_crud.get_existing_user(db,user_create=_user_create)
+    if user:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail='이미 존재하는 사용자입니다.')
     users_crud.create_user(db = db, user_create=_user_create)
 
 
 #post
 @router.post("/login")
-def user_login(_user_login: users_schema.Users, db: Session = Depends(get_db)):
+def user_login(_user_login: users_schema.Users,
+               db: Session = Depends(get_db)):
     user = users_crud.get_user(db = db, user_login=_user_login)
-    return user
+    if user:
+        return 1
+    else:
+        return 0
