@@ -28,34 +28,40 @@ function Login() {
 			pwd: pwd
 		}
 
-
-		// await axios.post("http://localhost:3000/user/login", req)
-		// .then((resp) => {
-		// 	console.log("[Login.js] login() success :D");
-		// 	console.log(resp.data);
-
-		// 		alert(resp.data.id + "님, 성공적으로 로그인 되었습니다 🔐");
-
-		// 		// JWT 토큰 저장
-				// localStorage.setItem("bbs_access_token", resp.data.jwt);
-				// localStorage.setItem("id", resp.data.id);
-		localStorage.setItem("bbs_access_token", "1234");
-		localStorage.setItem("id", "admin");
-
-				// setAuth(resp.data.id); // 사용자 인증 정보(아이디 저장)
-				// setHeaders({"Authorization": `Bearer ${resp.data.jwt}`}); // 헤더 Authorization 필드 저장
-		setAuth("admin"); // 사용자 인증 정보(아이디 저장)
-		setHeaders({"Authorization": `Bearer 1234`}); // 헤더 Authorization 필드 저장
-
+		fetch(`/api/users/login/token`,{
+			method: "POST",
+			headers: {
+				'accept': ' application/json',
+				'Content-Type': ' application/x-www-form-urlencoded',
+			},
+			body: `grant_type=&username=${id}&password=${pwd}&scope=&client_id=&client_secret=`
+		})
+		.then(res=>{
+			console.log(res);
+			if(res.status === 200){
+				return res.json();
+			}
+			return false;
+		})
+		.then(data=>{
+			if(data){
+				// JWT 토큰 저장
+				localStorage.setItem("bbs_access_token", data.token_type);
+				localStorage.setItem("id", data.username);
+				setAuth(data.username);
+				setHeaders({"Authorization": `${data.token_type} ${data.access_token}`}); // 헤더 Authorization 필드 저장
 				navigate("/bbslist");
-			
+			}
+			else{
+				alert("아이디 또는 비밀번호가 틀립니다.");
+			}
+		})
+		.catch((err) => {
+			console.log("[Login.js] login() error :<");
+			console.log(err);
 
-		// }).catch((err) => {
-		// 	console.log("[Login.js] login() error :<");
-		// 	console.log(err);
-
-		// 	alert("⚠️ " + err.response.data);
-		// });
+			alert("⚠️ " + err.response.data);
+		});
 	}
 
 	return (

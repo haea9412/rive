@@ -70,7 +70,6 @@ const Comment =(props)=>{
 
 	return (
 		<>
-			<div>aksjdhkljshdfklqjefjkldqsjhfkjhqsakjasdfjk</div>
 			<div className="my-1 d-flex justify-content-center">
 				<div className="col-1">
 					<img src="/images/profile-placeholder.png" alt="프로필 이미지"

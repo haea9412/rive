@@ -14,7 +14,7 @@ function BbsList() {
 	const [searchVal, setSearchVal] = useState("");
 
 	// Paging
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(0);
 	const [totalCnt, setTotalCnt] = useState(0);
 
 	// Link 용 (함수) 
@@ -22,13 +22,15 @@ function BbsList() {
 
 
 	/* [GET /bbs]: 게시글 목록 */
-	const getBbsList = async (choice, search, page) => {
-		fetch("/api/posts/list")
+	const getBbsList = async () => {
+		fetch(`api/posts/list?page=${page}&size=10`)
         .then(res=>{
 			return res.json()
 		})
 		.then((data)=>{
-			setBbsList(data);
+			console.log(data)
+
+			setBbsList(data.posts_list);
 		})
 		.catch((err) => {
 			console.log("[BbsList.js] useEffect() error :<");
