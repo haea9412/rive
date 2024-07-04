@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from domain.posts.posts_schema import PostCreate
-from models import Posts
+from models import Posts, Users
 from sqlalchemy.orm import Session
 
 #skip: 조회한 데이터의 시작 위치, limit: 시작 위치부터 가져올 데이터 개수
@@ -15,12 +15,14 @@ def get_post(db: Session, post_id: int):
     posts = db.query(Posts).get(post_id)
     return posts
 
-def create_post(db: Session, post_create: Posts):
+#글쓴이 정보 추가
+def create_post(db: Session, post_create: PostCreate, user: Users):
     db_post = Posts(type = post_create.type,
                     user_id=post_create.user_id,
                     title = post_create.title,
                     content = post_create.content,
-                    create_date = datetime.now())
+                    create_date = datetime.now(),
+                    user = user)
     db.add(db_post)
     db.commit()
 

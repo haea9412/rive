@@ -4,6 +4,7 @@ from sqlalchemy.orm import relationship
 
 from database import Base
 
+
 # user 이용자 계정
 class Users(Base):
     __tablename__ = "users"
@@ -21,7 +22,8 @@ class Posts(Base):
 
     type = Column(Integer, nullable=False)
     post_id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"))
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=True)
+    user = relationship("Users", backref="posts_users")
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)
@@ -34,7 +36,8 @@ class Answers(Base):
 
     answer_id = Column(Integer, primary_key=True)
     post_id = Column(Integer, ForeignKey("posts.post_id"))
-    user_id = Column(Integer, ForeignKey("users.user_id"))
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user = relationship("Users", backref="answers_users")
     content = Column(Text, nullable=True)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)
 
