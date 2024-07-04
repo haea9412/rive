@@ -4,7 +4,7 @@ import Comment from "./Comment.jsx";
 
 function CommentList(props) {
 
-	const seq = props.seq;
+	const seq = Number(props.seq);
 
 	// Paging
 	const [page, setPage] = useState(0);
@@ -26,6 +26,7 @@ function CommentList(props) {
 		})
 		.then(data=>{
 			console.log(data);
+			// setCommentList(commentlists(data));
 			setCommentList(data);
 		})
 		.catch((err) => {
@@ -40,7 +41,6 @@ function CommentList(props) {
 
 	return (
 		<>
-
 			<div className="my-1 d-flex justify-content-center">
 				<h5><i className="fas fa-paperclip"></i> 댓글 목록 </h5>
 			</div>
@@ -54,7 +54,7 @@ function CommentList(props) {
 				nextPageText={"›"}
 				onChange={changePage} /> */}
 			{
-				commentList.map(function (comment, idx) {
+				commentList.filter(obj=>obj.post_id === seq).map(function (comment, idx) {
 					return (
 						<div className="my-5" key={idx}>
 							<Comment obj={comment} key={idx} />
