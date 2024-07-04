@@ -36,3 +36,9 @@ def post_create(_post_create: posts_schema.Posts,
 def post_userlist(user_id: int, db: Session = Depends(get_db)):
      posts = posts_crud.user_postlist(db, user_id=user_id)
      return posts
+
+
+@router.post("/{username}")
+def get_username_post(user_id: int, db: Session = Depends(get_db)):
+    username = db.session.query(Users).get(user_id)
+    return username
