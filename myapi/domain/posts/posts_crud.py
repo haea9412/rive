@@ -16,13 +16,13 @@ def get_post(db: Session, post_id: int):
     return posts
 
 #글쓴이 정보 추가
-def create_post(db: Session, post_create: PostCreate, user: Users):
+def create_post(db: Session, post_create: PostCreate):#, user: Users):
     db_post = Posts(type = post_create.type,
                     user_id=post_create.user_id,
                     title = post_create.title,
                     content = post_create.content,
-                    create_date = datetime.now(),
-                    user = user)
+                    create_date = datetime.now())
+                    #user = user)
     db.add(db_post)
     db.commit()
 

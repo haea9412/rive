@@ -71,7 +71,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
         "username": user.username
     }
 
-
+"""
 #get user 글쓰려면 로그인 해야함
 #헤더 정보 토큰값으로 사용자 정보 조회
 def get_current_user(token: str = Depends(oauth2_scheme),
@@ -94,3 +94,4 @@ def get_current_user(token: str = Depends(oauth2_scheme),
         if user is None:
             raise credentials_exception
         return user
+"""

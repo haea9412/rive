@@ -5,7 +5,7 @@ from starlette import status
 
 from database import get_db
 from domain.posts import posts_schema, posts_crud
-from domain.users.users_router import get_current_user
+#from domain.users.users_router import get_current_user
 from models import Users
 
 #post router 생성
@@ -28,9 +28,9 @@ def posts_detail(post_id: int, db: Session = Depends(get_db)):
 
 @router.post("/create", status_code = status.HTTP_204_NO_CONTENT)
 def post_create(_post_create: posts_schema.Posts,
-                db: Session = Depends(get_db),
-                current_user: Users = Depends(get_current_user)):
-    posts_crud.create_post(db = db, post_create=_post_create, user=current_user)
+                db: Session = Depends(get_db)):
+                #current_user: Users = Depends(get_current_user)):
+    posts_crud.create_post(db = db, post_create=_post_create)#, user=current_user)
 
 @router.get("/list/user/{user_id}")
 def post_userlist(user_id: int, db: Session = Depends(get_db)):
