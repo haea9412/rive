@@ -9,14 +9,13 @@ import hashlib
 #pwd_context = CryptContext(schemes=["bcrypt"], deprecated = 'auto')
 #hash_obj = hashlib.sha256() #해시 객체 초기화
 
-salt = "1324756931"
+salt = 'rive' #"1324756931"
 def create_user(db: Session, user_create: UserCreate):
-    passwd = user_create.user_pw1 + salt
-    
+     
     db_user = Users(user_id = user_create.user_id + 1,
                     username = user_create.username,
                     #user_pw = user_create.user_pw1,
-                    user_pw = hash_pw(passwd),
+                    user_pw = hash_pw(user_create.user_pw1),
                     email = user_create.email,
                     create_date = datetime.now())
     db.add(db_user)
@@ -35,6 +34,6 @@ def get_existing_user(db: Session, user_create: UserCreate):
 
 #비밀번호 해시 암호화 함수
 def hash_pw(password: str):
-    password = password + salt
-    hashcode = hashlib.sha512(password.encode("utf-8")).hexdigest()
+    pw = password + salt
+    hashcode = hashlib.sha512(pw.encode("utf-8")).hexdigest()
     return hashcode
