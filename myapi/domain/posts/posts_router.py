@@ -40,5 +40,5 @@ def post_userlist(user_id: int, db: Session = Depends(get_db)):
 
 @router.post("/{username}")
 def get_username_post(user_id: int, db: Session = Depends(get_db)):
-    username = db.session.query(Users).get(user_id)
+    username = db.query(Users).get(user_id)
     return username
