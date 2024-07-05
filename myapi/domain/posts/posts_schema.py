@@ -17,6 +17,7 @@ class PostCreate(BaseModel):
     post_id: str  
     title: str
     content: str
+    
 
     @field_validator('title', 'content', check_fields=False)
     def not_empty(cls, v):

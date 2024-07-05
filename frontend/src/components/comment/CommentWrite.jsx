@@ -26,21 +26,24 @@ function CommentWrite(props) {
 			bbsSeq: seq
 		}
 
-		// await axios.post(`http://localhost:3000/comment`, req, { params: {"bbsSeq": seq}, headers: headers})
-		// .then((resp) => {
-		// 	console.log("[CommentWrite.js] createComment() success :D");
-		// 	console.log(resp.data);
-
-		// 	if (resp.data.seq != null) {
-		// 		alert("댓글을 성공적으로 등록했습니다 :D");
-		// 		navigate(0);
-		// 	}
-
-		// }).catch((err) => {
-		// 	console.log("[CommentWrite.js] createComment() error :<");
-		// 	console.log(err);
-
-		// });
+		fetch(`/api/answer/create/${seq}`,{
+			method: "POST",
+			headers: {
+				'accept': ' */*',
+				'Content-Type': ' application/json',
+			},
+			body: JSON.stringify({
+				content: content
+			})
+		})
+		.then(res=>{
+			alert("댓글을 성공적으로 등록했습니다 :D");
+			navigate(0);
+		})
+		.catch((err) => {
+			console.log("[CommentWrite.js] createComment() error :<");
+			console.log(err);
+		});
 	}
 
 	return (

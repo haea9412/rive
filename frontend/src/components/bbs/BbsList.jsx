@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import Pagination from "react-js-pagination";
+import Pagination from "react-js-pagination";
 
 import "../../css/bbslist.css";
 import "../../css/page.css";
@@ -14,7 +14,7 @@ function BbsList() {
 	const [searchVal, setSearchVal] = useState("");
 
 	// Paging
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(0);
 	const [totalCnt, setTotalCnt] = useState(0);
 
 	// Link 용 (함수) 
@@ -22,27 +22,20 @@ function BbsList() {
 
 
 	/* [GET /bbs]: 게시글 목록 */
-	const getBbsList = async (choice, search, page) => {
-		// fetch("http://localhost:8000/api/posts/list")
-		fetch("http://localhost:8000/api/posts/list")
-        .then(res=>{return res.json()})
+	const getBbsList = async () => {
+		fetch(`api/posts/list?page=${page}&size=10`)
+        .then(res=>{
+			return res.json()
+		})
 		.then((data)=>{
-			setBbsList(data);
+			console.log(data)
+
+			setBbsList(data.posts_list);
+		})
+		.catch((err) => {
+			console.log("[BbsList.js] useEffect() error :<");
+			console.log(err);
 		});
-
-		// await axios.get("http://localhost:3000/bbs", { params: { "choice": choice, "search": search, "page": page } })
-		// 	.then((resp) => {
-		// 		console.log("[BbsList.js] useEffect() success :D");
-		// 		console.log(resp.data);
-
-		// 		setBbsList(resp.data.bbsList);
-		// 		setTotalCnt(resp.data.pageCnt);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log("[BbsList.js] useEffect() error :<");
-		// 		console.log(err);
-
-		// 	});
 	}
 
 	useEffect(() => {
@@ -93,7 +86,7 @@ function BbsList() {
 			<table className="table table-hover">
 				<thead>
 					<tr>
-						<th className="col-1">번호</th>
+						<th className="col-1 text-center">번호</th>
 						<th className="col-8">제목</th>
 						<th className="col-3">작성자</th>
 					</tr>
@@ -134,15 +127,15 @@ function TableRow(props) {
 	return (
 			<tr>
 				
-					<th>{props.cnt}</th>
+					<th className="text-center">{props.cnt}</th>
 					{
 						(bbs.del !== 0) ?
 						// 삭제되지 않은 게시글
 						<>
 							<td >
-								<Arrow depth={bbs.depth}></Arrow> &nbsp; { /* 답글 화살표 */}
+								{/* <Arrow depth={bbs.depth}></Arrow> &nbsp; */}
 
-								<Link to={{ pathname: `/bbsdetail/${bbs.id}` }}> { /* 게시글 상세 링크 */}
+								<Link to={{ pathname: `/bbsdetail/${bbs.post_id}` }}> { /* 게시글 상세 링크 */}
 									<span className="underline bbs-title" >{bbs.title} </span> { /* 게시글 제목 */}
 								</Link>
 							</td>

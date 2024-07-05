@@ -12,7 +12,7 @@ import hashlib
 salt = 'rive' #"1324756931"
 def create_user(db: Session, user_create: UserCreate):
      
-    db_user = Users(user_id = user_create.user_id + 1,
+    db_user = Users(#user_id = user_create.user_id + 1,
                     username = user_create.username,
                     #user_pw = user_create.user_pw1,
                     user_pw = hash_pw(user_create.user_pw1),

@@ -56,21 +56,21 @@ function BbsUpdate() {
 			<table className="table">
 				<tbody>
 					<tr>
-						<th className="table-primary">작성자</th>
-						<td>
-							<input type="text" className="form-control"  value={bbs.id} size="50px" readOnly />
-						</td>
-					</tr>
-
-					<tr>
-						<th className="table-primary">제목</th>
+						<th className="text-center">제목</th>
 						<td>
 							<input type="text" className="form-control" value={title} onChange={changeTitle} size="50px" />
 						</td>
 					</tr>
 
 					<tr>
-						<th className="table-primary">내용</th>
+						<th className="text-center ">작성자</th>
+						<td>
+							<input type="text" className="form-control"  value={bbs.id} size="50px" readOnly />
+						</td>
+					</tr>
+
+					<tr>
+						<th className="text-center">내용</th>
 						<td>
 							<textarea className="form-control" value={content} onChange={changeContent} rows="10" ></textarea>
 						</td>

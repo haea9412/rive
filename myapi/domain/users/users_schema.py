@@ -13,7 +13,7 @@ class Users(BaseModel):
 
 class UserCreate(BaseModel):
 
-    user_id: int
+    #user_id: int
     username: str
     user_pw1: str
     user_pw2: str

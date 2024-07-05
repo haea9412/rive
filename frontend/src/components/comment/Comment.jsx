@@ -68,6 +68,39 @@ const Comment =(props)=>{
 		setShow(show => !show) 
 	}
 
+	return (
+		<>
+			<div className="my-1 d-flex justify-content-center">
+				<div className="col-1">
+					<img src="/images/profile-placeholder.png" alt="프로필 이미지"
+						className="profile-img" />
+				</div>
+				<div className="col-5">
+					<div className="row">
+						<span className="comment-id">{comment.content}</span>
+					</div>
+					<div className="row">
+						{/* <span>{comment.create_date}</span> */}
+					</div>
+				</div>
+
+				<div className="col-4 d-flex justify-content-end">
+				{
+					/* 자신이 작성한 댓글인 경우에만 수정 삭제 가능 */
+					(localStorage.getItem("id") == comment.id) ?
+						<>
+							<button className="btn btn-outline-secondary" onClick={updateToggle}><i className="fas fa-edit"></i> 수정</button> &nbsp; 
+							<button className="btn btn-outline-danger" onClick={deleteComment}><i className="fas fa-trash-alt"></i> 삭제</button>
+						
+						</>
+						:
+						null
+				}
+				</div>
+			</div>
+		</>
+	);
+
 	// 삭제되지 않은 댓글의 경우
 	if (comment.del == 0) {
 		return (

@@ -85,11 +85,15 @@ span.bbs-title {
 }
 
 .header-title{
-	font-size: 120px;
+	font-size: 100px;
 	font-weight: bolder;
-	color: white;
+	color: #212529;
 }
 
-.test{
-	height: 200vh;
+.qwer{
+	background-color: #212529;
 }
+
+/* .test{
+	height: 200vh;
+} */

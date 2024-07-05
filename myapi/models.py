@@ -11,7 +11,7 @@ class Users(Base):
 
     user_id = Column(Integer, primary_key=True, index=True, unique=True)
     username = Column(String(20), nullable=False, unique=True)
-    user_pw = Column(String(20), unique = True, nullable=False)
+    user_pw = Column(String(128), nullable=False)
     email = Column(String, unique=True, nullable=False)
     create_date = Column(DateTime,default=datetime.now(),  nullable=False)
 
@@ -36,7 +36,7 @@ class Answers(Base):
 
     answer_id = Column(Integer, primary_key=True)
     post_id = Column(Integer, ForeignKey("posts.post_id"))
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.user_id"))
     user = relationship("Users", backref="answers_users")
     content = Column(Text, nullable=True)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)

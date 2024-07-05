@@ -29,3 +29,4 @@ def create_post(db: Session, post_create: PostCreate):#, user: Users):
 def user_postlist(db: Session, user_id: int):
     posts_list = db.query(Posts).filter(Posts.user_id == user_id).all()
     return posts_list
+

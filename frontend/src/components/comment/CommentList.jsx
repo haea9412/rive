@@ -7,30 +7,31 @@ function CommentList(props) {
 	const seq = props.seq;
 
 	// Paging
-	const [page, setPage] = useState(1);
+	const [page, setPage] = useState(0);
 	const [totalCnt, setTotalCnt] = useState(0);
 
 	const [commentList, setCommentList] = useState([]);
 
-	const changePage = (page) => {
+	const changePage = () => {
 		setPage(page);
 		getCommentList(page);
 	}
 
-	const getCommentList = async (page) => {
-		// await axios.get(`http://localhost:3000/comment`, { params: { "bbsSeq": seq, "page": page } })
-		// 	.then((resp) => {
-		// 		console.log("[BbsComment.js] getCommentList() success :D");
-		// 		console.log(resp.data);
-
-		// 		setCommentList(resp.data.commentList);
-		// 		setTotalCnt(resp.data.pageCnt);
-
-		// 	}).catch((err) => {
-		// 		console.log("[BbsComment.js] getCommentList() error :<");
-		// 		console.log(err);
-
-		// 	});
+	const getCommentList = async () => {
+		fetch(`/api/answer/list?post_id=${seq}`,{
+			method: "POST"
+		})
+		.then((res)=>{
+			return res.json();
+		})
+		.then(data=>{
+			console.log(data);
+			setCommentList(data);
+		})
+		.catch((err) => {
+			console.log("[BbsComment.js] getCommentList() error :<");
+			console.log(err);
+		});
 	}
 
 	useEffect(() => {
