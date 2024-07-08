@@ -27,6 +27,7 @@ class Posts(Base):
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)
+    modify_date = Column(DateTime, nullable=True)
     # 나중에 조회수, 파일 업로드 등 추가
 
 
@@ -40,4 +41,5 @@ class Answers(Base):
     user = relationship("Users", backref="answers_users")
     content = Column(Text, nullable=True)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)
+    modify_date = Column(DateTime, nullable=True) #nullables
 
