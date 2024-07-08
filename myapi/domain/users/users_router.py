@@ -30,7 +30,12 @@ def user_create(_user_create: users_schema.UserCreate,
     if user:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT,
                             detail='이미 존재하는 사용자입니다.')
-    users_crud.create_user(db = db, user_create=_user_create)
+    user2 = users_crud.create_user(db = db, user_create=_user_create)
+    if len(user2.user_pw) <= 1:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT,
+                            detail='잘못된 비밀번호 설정입니다.')
+
+
 
 
 #login

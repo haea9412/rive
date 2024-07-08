@@ -15,11 +15,12 @@ def create_user(db: Session, user_create: UserCreate):
     db_user = Users(#user_id = user_create.user_id + 1,
                     username = user_create.username,
                     #user_pw = user_create.user_pw1,
-                    user_pw = hash_pw(user_create.user_pw1),
+                    user_pw = create_pw(user_create.user_pw1),
                     email = user_create.email,
                     create_date = datetime.now())
     db.add(db_user)
     db.commit()
+    return db_user
 
 
 #username으로 조회
@@ -32,8 +33,22 @@ def get_existing_user(db: Session, user_create: UserCreate):
    #user = db.register.find_one({'username': user_create.username, 'user_pw': user_create.user_pw1})
    return user
 
+
+def create_pw(password: str):
+    pw_len = len(password) #입력받은 패스워드 길이 반환
+    if (8 > pw_len) | (pw_len > 30):
+        return '0'
+    else:
+        pw = password + salt
+        hashcode = hashlib.sha512(pw.encode("utf-8")).hexdigest()
+        return hashcode
+
+        
+"""
 #비밀번호 해시 암호화 함수
 def hash_pw(password: str):
     pw = password + salt
     hashcode = hashlib.sha512(pw.encode("utf-8")).hexdigest()
     return hashcode
+
+"""

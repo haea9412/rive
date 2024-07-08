@@ -25,6 +25,7 @@ class UserCreate(BaseModel):
             raise ValueError('빈 값은 허용되지 않습니다.')
         return v
     
+
     @field_validator('user_pw2')
     def passwords_match(cls, v, info: FieldValidationInfo):
         if 'user_pw1' in info.data and v != info.data['user_pw1']:
