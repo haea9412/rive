@@ -1,6 +1,7 @@
 from passlib.context import CryptContext
 from models import Users
 from sqlalchemy.orm import Session
+from sqlalchemy import select
 from datetime import datetime
 from domain.users.users_schema import UserCreate
 import hashlib
@@ -21,6 +22,11 @@ def create_user(db: Session, user_create: UserCreate):
     db.add(db_user)
     db.commit()
     return db_user
+
+def del_user(db: Session, username: str):
+    db_user = db.execute(select(Users).filter(Users.username == username)).scalars().first()
+    db.delete(db_user)
+    db.commit()
 
 
 #username으로 조회
