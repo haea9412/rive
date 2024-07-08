@@ -66,7 +66,7 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
     #if not user or not hashlib.verify(form_data.user_pw, user.user_pw):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password " + user.user_pw + "   " + h_pw,
+            detail="Incorrect username or password ",
             headers={"WWW-Authenticate": "Bearer"},
         ) 
     #make access token

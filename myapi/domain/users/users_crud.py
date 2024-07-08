@@ -10,7 +10,7 @@ import hashlib
 #pwd_context = CryptContext(schemes=["bcrypt"], deprecated = 'auto')
 #hash_obj = hashlib.sha256() #해시 객체 초기화
 
-salt = 'rive' #"1324756931"
+salt = '' #'rive' #"1324756931"
 def create_user(db: Session, user_create: UserCreate):
      
     db_user = Users(#user_id = user_create.user_id + 1,
@@ -45,16 +45,12 @@ def create_pw(password: str):
     if (8 > pw_len) | (pw_len > 30):
         return '0'
     else:
-        pw = password + salt
-        hashcode = hashlib.sha512(pw.encode("utf-8")).hexdigest()
-        return hashcode
+        return hash_pw(password)
 
         
-"""
+
 #비밀번호 해시 암호화 함수
 def hash_pw(password: str):
     pw = password + salt
     hashcode = hashlib.sha512(pw.encode("utf-8")).hexdigest()
     return hashcode
-
-"""
