@@ -9,7 +9,7 @@ from database import Base
 class Users(Base):
     __tablename__ = "users"
 
-    user_id = Column(Integer, primary_key=True, index=True, unique=True)
+    user_id = Column(Integer, unique=True, primary_key=True, autoincrement=False)
     username = Column(String(20), nullable=False, unique=True)
     user_pw = Column(String(128), nullable=False)
     email = Column(String, unique=True, nullable=False)
@@ -21,13 +21,13 @@ class Posts(Base):
     __tablename__ = "posts"
 
     type = Column(Integer, nullable=False)
-    post_id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=True)
+    post_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
+    username = Column(String(20), ForeignKey("users.username"), nullable=True)
     user = relationship("Users", backref="posts_users")
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)
-    modify_date = Column(DateTime, nullable=True)
+    #modify_date = Column(DateTime, nullable=True)
     # 나중에 조회수, 파일 업로드 등 추가
 
 
@@ -35,11 +35,11 @@ class Posts(Base):
 class Answers(Base):
     __tablename__ = "answers"
 
-    answer_id = Column(Integer, primary_key=True)
+    answer_id = Column(Integer, primary_key=True, autoincrement=True)
     post_id = Column(Integer, ForeignKey("posts.post_id"))
-    user_id = Column(Integer, ForeignKey("users.user_id"))
+    username = Column(String(20), ForeignKey("users.username"))
     user = relationship("Users", backref="answers_users")
     content = Column(Text, nullable=True)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)
-    modify_date = Column(DateTime, nullable=True) #nullables
+    #modify_date = Column(DateTime, nullable=True) #nullables
 
