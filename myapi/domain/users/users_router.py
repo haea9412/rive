@@ -73,7 +73,8 @@ def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(),
     return {
         "access_token": access_token,
         "token_type": "bearer",
-        "username": user.username
+        "username": user.username,
+        "user_id": user.user_id
     }
 
 """
@@ -100,3 +101,6 @@ def get_current_user(token: str = Depends(oauth2_scheme),
             raise credentials_exception
         return user
 """
+
+def get_now_user(db: Session = Depends(get_db)):
+    user = db.Query(Users)
