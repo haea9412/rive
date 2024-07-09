@@ -22,7 +22,7 @@ class Posts(Base):
 
     type = Column(Integer, nullable=False)
     post_id = Column(Integer, primary_key=True, autoincrement=True, index=True)
-    username = Column(String(20), ForeignKey("users.username"), nullable=True)
+    user_id = Column(Integer, ForeignKey("users.user_id"), nullable=True)
     user = relationship("Users", backref="posts_users")
     title = Column(String(100), nullable=False)
     content = Column(Text, nullable=False)
@@ -37,7 +37,7 @@ class Answers(Base):
 
     answer_id = Column(Integer, primary_key=True, autoincrement=True)
     post_id = Column(Integer, ForeignKey("posts.post_id"))
-    username = Column(String(20), ForeignKey("users.username"))
+    user_id = Column(Integer, ForeignKey("users.user_id"))
     user = relationship("Users", backref="answers_users")
     content = Column(Text, nullable=True)
     create_date = Column(DateTime, default=datetime.now(), nullable=False)

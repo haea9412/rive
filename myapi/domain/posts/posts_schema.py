@@ -10,11 +10,12 @@ class Posts(BaseModel):
     title: str
     content: str
     create_date: datetime.datetime
+    #modify_date: datetime.datetime
 # str|None = None : 필수 항목이 아닌 경우 들어가는 옵션(str or none, default none)
 
 class PostCreate(BaseModel): 
     
-    post_id: str  
+    post_id: int  
     title: str
     content: str
     
@@ -25,6 +26,11 @@ class PostCreate(BaseModel):
             raise ValueError('빈 값은 허용되지 않습니다.')
         return v
     
+
+#PostCreate 상속    
+class PostUpdate(PostCreate):
+    post_id: int
+
 class PostList(BaseModel):
     total: int = 0
     posts_list: list[Posts] = []

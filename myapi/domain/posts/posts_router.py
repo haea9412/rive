@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from starlette import status
@@ -31,6 +31,16 @@ def post_create(_post_create: posts_schema.Posts,
                 db: Session = Depends(get_db)):
                 #current_user: Users = Depends(get_current_user)):
     posts_crud.create_post(db = db, post_create=_post_create)#, user=current_user)
+
+"""
+@router.put("/update", status_code=status.HTTP_204_NO_CONTENT)
+def post_update(_post_update: posts_schema.PostUpdate, db: Session = Depends(get_db)):
+    db_post = posts_crud.get_post(db, post_id=_post_update.post_id)
+    if not db_post:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail="데이터를 찾을 수 없습니다.")
+    posts_crud.update_post(db=db, db_post=db_post, post_update=_post_update)
+"""
 
 @router.get("/list/user/{user_id}")
 def post_userlist(user_id: int, db: Session = Depends(get_db)):

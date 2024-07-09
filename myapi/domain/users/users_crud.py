@@ -15,11 +15,11 @@ salt = 'rive' #"1324756931"
 
 
 #unique user_id 생성
-def make_id(db: Session, user_id: int):
+def make_userid(db: Session, user_id: int):
     get_id = randint(1, 1000000) #100만명 안에서 user_id 랜덤 생성
     user = db.query(Users).filter(Users.user_id == get_id).first()
     if user:
-        return make_id(db, user_id)
+        return make_userid(db, user_id)
     else:
         user_id = get_id
         return user_id
@@ -27,7 +27,7 @@ def make_id(db: Session, user_id: int):
 
 def create_user(db: Session, user_create: UserCreate):
      
-    db_user = Users(user_id = make_id(db,user_create.user_id),
+    db_user = Users(user_id = make_userid(db,user_create.user_id),
                     username = user_create.username,
                     #user_pw = user_create.user_pw1,
                     user_pw = create_pw(user_create.user_pw1),
